@@ -9,7 +9,9 @@ To use the code directly in the browser via a CDN, paste the following script in
 
 CDN
 ```js
-    <script></script>
+    <script type="module">
+        import { /* import here whatever you need  */ } from "https://cdn.jsdelivr.net/gh/CristianRG/game_engine/src/dist/index.js"
+    </script>
 ```
 
 If you want to use the source code to extend it or develop a game using TypeScript, it is recommended to install the following dependencies to facilitate development (you can configure your environment and decide which tools you do not want to use):
@@ -46,29 +48,33 @@ In your HTML file:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quickstart Tutorial</title>
+    <title>Document</title>
 </head>
-<body>
-    <canvas width="500" height="500"></canvas>
-    <!-- CDN file -->
-    <script type="module" src=""></script>
-    <!-- Your script logic -->
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #2e2d2d;">
+    <canvas width="500", height="500" style="border: 1px solid white;"></canvas>
     <script type="module">
+        import { Engine, Entity, GlobalState, Transform, Renderable } from "https://cdn.jsdelivr.net/gh/CristianRG/game_engine/src/dist/index.js";
+        
         document.addEventListener("DOMContentLoaded", () => {
-            const canvas = document.querySelector('canvas')
-            const engine = new Engine(canvas)
-            engine.start()
+            const canvas = document.querySelector("canvas");
+            const engine = new Engine(canvas);
+            engine.start();
 
-            const scene = GlobalState.getInstance().scenes[0]
-            const entity = new Entity()
-            entity.addComponent(new Transform(100, 100, 50, 50)).addComponent(new Renderable("blue"))
+            const entity = new Entity();
+            entity.addComponent(new Transform(250, 250, 50, 50));
+            entity.addComponent(new Renderable("red"));
 
-            scene.entities.push(entity)
-        })
+            const scene = GlobalState.getInstance().scenes[0];
+            scene.entities.push(entity);
+        });
     </script>
 </body>
 </html>
 ```
+
+If everything went well then you should see:
+
+![entity in canvas](src/examples/quickstart.png)
 
 ## License
 
