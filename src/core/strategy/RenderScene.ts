@@ -2,7 +2,7 @@ import { Renderable } from "../../components/Renderable";
 import { Transform } from "../../components/Transform";
 import { IRenderStrategy } from "../interfaces/IScene";
 import { Entity } from "../models/Entity";
-import { Object } from "../models/Object";
+import { GameObject } from "../models/GameObject";
 import { Scene } from "../models/Scene";
 
 export class RenderScene implements IRenderStrategy {
@@ -39,7 +39,7 @@ export class RenderScene implements IRenderStrategy {
         }
     }
 
-    renderObjects(objects: Object[], ctx: CanvasRenderingContext2D): void {
+    renderObjects(objects: GameObject[], ctx: CanvasRenderingContext2D): void {
         for (const object of objects) {
 
             const transform = object.getComponent(Transform);

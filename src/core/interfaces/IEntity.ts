@@ -1,6 +1,3 @@
-import { IComponent, IComponentMehtods } from "./IComponent";
-
-export interface IEntity extends IComponentMehtods {
+export interface IEntity {
     id: number;
-    _components: Map<string, IComponent>;
 }

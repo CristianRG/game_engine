@@ -7,7 +7,7 @@ export { System } from "./core/models/System";
 
 // Entity models
 export { Entity } from "./core/models/Entity";
-export { Object } from "./core/models/Object"
+export { GameObject } from "./core/models/GameObject"
 export { Scene } from "./core/models/Scene";
 export { Component } from "./core/models/Component";
 

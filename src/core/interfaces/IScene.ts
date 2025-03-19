@@ -1,10 +1,10 @@
 import { IEntity } from "./IEntity";
-import { IObject } from "./IObject";
+import { IGameObject } from "./IGameObject";
 
 export interface IScene {
     id: number;
     entities: IEntity[];
-    objects: IObject[];
+    objects: IGameObject[];
 }
 
 export interface IRenderStrategy {

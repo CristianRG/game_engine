@@ -1,8 +1,8 @@
-import { Object as CustomObject } from "../models/Object";
+import { GameObject } from "../models/GameObject";
 
 export class ObjectDecorator {
 
-    static registerObject(constructor: new (...args: any[]) => CustomObject){
+    static registerObject(constructor: new (...args: any[]) => GameObject){
             //const globalEntityState = GlobalEntityState.getInstance();
             const original = constructor;
     
@@ -18,6 +18,6 @@ export class ObjectDecorator {
             // Copy static properties
             Object.assign(newConstructor, original);
     
-            return newConstructor as unknown as typeof CustomObject;
+            return newConstructor as unknown as typeof GameObject;
         }
 }

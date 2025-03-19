@@ -1,6 +1,6 @@
 import { Transform } from "../../components/Transform";
 import { Entity } from "../models/Entity";
-import { Object } from "../models/Object";
+import { GameObject } from "../models/GameObject";
 import { Physics } from "../models/Physics";
 import { GlobalState } from "../state/GlobalState";
 
@@ -37,7 +37,7 @@ export class Gravity extends Physics {
         }
     }
 
-    private checkPossibleCollision(transform: Transform): Entity | Object | undefined {
+    private checkPossibleCollision(transform: Transform): Entity | GameObject | undefined {
         const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.entity.id);
         const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.entity.id);
         entities.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);

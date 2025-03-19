@@ -1,12 +1,12 @@
 import { Entity } from "../models/Entity";
-import { Object } from "../models/Object";
+import { GameObject } from "../models/GameObject";
 import { Scene } from "../models/Scene";
 
 export class GlobalState {
     private static instance: GlobalState;
     scenes: Scene[];
     entities: Entity[];
-    objects: Object[];
+    objects: GameObject[];
 
     private constructor() {
         this.scenes = [];

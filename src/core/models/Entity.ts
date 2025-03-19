@@ -1,26 +1,13 @@
 import { EntityDecorator } from "../decorators/EntityDecorator";
-import { IComponent } from "../interfaces/IComponent";
 import { IEntity } from "../interfaces/IEntity";
+import { EntityInjector } from "./Injector";
 
 @EntityDecorator.registerEntity
-export class Entity implements IEntity {
+export class Entity extends EntityInjector implements IEntity {
     private static _id: number = 0;
-    public id: number;
-    _components: Map<string, IComponent>;
-
-    constructor() {
+    id: number;
+    constructor(){
+        super();
         this.id = Entity._id++;
-        this._components = new Map<string, IComponent>();
-    }
-
-    addComponent(component: IComponent) {
-        this._components.set(component.constructor.name, component);
-        return this;
-    }
-    getComponent<T extends IComponent>(type: new () => T): T | undefined {
-        return this._components.get(type.name) as T;
-    }
-    hasComponent<T extends IComponent>(type: new () => T): boolean {
-        return this._components.has(type.name);
     }
 }

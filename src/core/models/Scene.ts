@@ -1,7 +1,7 @@
 import { SceneDecorator } from "../decorators/SceneDecorator";
 import { IScene } from "../interfaces/IScene";
 import { Entity } from "./Entity";
-import { Object } from "./Object";
+import { GameObject } from "./GameObject";
 
 @SceneDecorator.registerScene
 export class Scene implements IScene {
@@ -9,9 +9,9 @@ export class Scene implements IScene {
     id: number;
     canvas: HTMLCanvasElement;
     entities: Entity[];
-    objects: Object[];
+    objects: GameObject[];
 
-    constructor(canvas: HTMLCanvasElement, entities: Entity[] = [], objects: Object[] = []) {
+    constructor(canvas: HTMLCanvasElement, entities: Entity[] = [], objects: GameObject[] = []) {
         this.id = Scene._id++;
         this.canvas = canvas;
         this.entities = entities;
