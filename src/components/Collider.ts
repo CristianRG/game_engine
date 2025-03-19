@@ -6,7 +6,6 @@ import { Transform } from "./Transform";
 
 export class Collider extends Component {
     constructor(
-        private entity = new Entity(),
         public onCollision: (collider: Collider) => void = () => {}
     ){
         super();
