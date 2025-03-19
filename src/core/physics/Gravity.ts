@@ -7,13 +7,11 @@ import { GlobalState } from "../state/GlobalState";
 export class Gravity extends Physics {
     public type: "physics" | "gravity" | "jump" = "gravity";
     private gravity: number = 9.8;
-    private entity: Entity;
     private scene = GlobalState.getInstance().scenes[0];
     public stop: boolean = false;
 
-    constructor(entity: Entity, gravity?: number) {
+    constructor(gravity?: number) {
         super();
-        this.entity = entity;
         this.gravity = gravity ?? this.gravity;
     }
 

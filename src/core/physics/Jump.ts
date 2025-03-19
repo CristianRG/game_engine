@@ -7,16 +7,14 @@ import { GlobalState } from "../state/GlobalState";
 
 export class Jump extends Physics {
     public type: "physics" | "gravity" | "jump" = "jump";
-    private entity: Entity;
     private scene = GlobalState.getInstance().scenes[0];
     private movementTimeout: number | null = null;
     public apply: boolean = false;
     public stop: boolean = true;
     public jumpSpeed: number = 10;
 
-    constructor(entity: Entity, jumpSpeed?: number) {
+    constructor(jumpSpeed?: number) {
         super();
-        this.entity = entity;
         this.jumpSpeed = jumpSpeed ?? this.jumpSpeed;
     }
 
