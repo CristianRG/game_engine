@@ -4,7 +4,6 @@ export class Transform extends Component {
     private movementTimeout: number | null = null;
     private readonly MOVEMENT_TIMEOUT_DURATION = 100; // ms
     public direction: "up" | "down" | "left" | "right" | "quiet" = "quiet";
-    private lastPositions: { x: number, y: number }[] = [];
 
     constructor(
         public x: number = 0,
@@ -17,7 +16,7 @@ export class Transform extends Component {
         super();
     }
 
-    public move(move: "up" | "down" | "left" | "right"): void {
+    public translate(move: "up" | "down" | "left" | "right"): void {
         let x, y: number;
         switch(move){
             case "up":
@@ -43,14 +42,9 @@ export class Transform extends Component {
         }
         this.x += x;
         this.y += y;
-        this.registerLastPosition(x, y);
+        this.trackMovementDirection(x, y);
         this.resetMovementTimeout();
     }
-
-    // public moveOver(x: number, y: number): void {
-    //     this.x += x;
-    //     this.y += y;
-    // }
 
     public undo(): void {
         switch (this.direction) {
@@ -74,16 +68,11 @@ export class Transform extends Component {
 
     }
 
-    private registerLastPosition(x: number, y: number): void {
-        if (this.lastPositions.length > 10) {
-            this.lastPositions.shift();
-        }
-
+    private trackMovementDirection(x: number, y: number): void {
         if(x < 0) this.direction = "left";
         if(x > 0) this.direction = "right";
         if(y < 0) this.direction = "up";
         if(y > 0) this.direction = "down";
-        this.lastPositions.push({ x: this.x, y: this.y });
     }
 
     private resetMovementTimeout(): void {

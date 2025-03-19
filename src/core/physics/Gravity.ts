@@ -31,7 +31,7 @@ export class Gravity extends Physics {
         }
 
         if (transform && this.apply && !this.stop) {
-            transform.move("down")
+            transform.translate("down")
         }
     }
 

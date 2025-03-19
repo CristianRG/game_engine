@@ -34,7 +34,7 @@ export class Jump extends Physics {
         }
 
         if (!this.stop && this.checkIfCanJump(transform)) {
-            transform.move("up");
+            transform.translate("up");
         } else {
             this.apply = false;
             this.stop = true;
