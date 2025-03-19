@@ -1,4 +1,5 @@
 import { IComponent, IComponentMehtods } from "../interfaces/IComponent";
+import { Entity } from "./Entity";
 
 export abstract class EntityInjector implements IComponentMehtods {
     _components: Map<string, IComponent> = new Map<string, IComponent>();
@@ -20,8 +21,15 @@ export abstract class EntityInjector implements IComponentMehtods {
 }
 
 export abstract class ComponentInjector implements IComponent {
-    entity!: EntityInjector;
-    setEntity(entity: EntityInjector): void {
+    entity!: Entity;
+    setEntity(entity: Entity): void {
+        this.entity = entity;
+    }
+}
+
+export abstract class PhysicsInjector {
+    entity!: Entity;
+    setEntity(entity: Entity): void {
         this.entity = entity;
     }
 }
