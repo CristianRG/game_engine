@@ -1,8 +1,5 @@
 import { Component } from "../core/models/Component";
-import { Entity } from "../core/models/Entity";
 import { Transform } from "./Transform";
-
-
 
 export class Collider extends Component {
     constructor(
