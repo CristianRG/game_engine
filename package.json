@@ -9,11 +9,16 @@
     "start": "http-server src/ -c-1",
     "dev": "nodemon"
   },
-  "keywords": ["game", "engine", "game engine"],
+  "keywords": [
+    "game",
+    "engine",
+    "game engine"
+  ],
   "author": "Cristian Alexander R.G.",
   "license": "AGPL-3.0-only",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.13.9",
     "http-server": "^14.1.1",
