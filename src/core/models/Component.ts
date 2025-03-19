@@ -1,4 +1,6 @@
+import { ComponentInjector } from "./Injector";
+
 /**
  * Base class for all components in the engine. Components are used to add functionality to entities.
  */
-export abstract class Component {}
+export abstract class Component extends ComponentInjector {}
