@@ -1,13 +1,12 @@
 import { IComponent, IComponentMehtods } from "../interfaces/IComponent";
-import { Entity } from "./Entity";
 
-export abstract class EntityInjector implements IComponentMehtods {
+export abstract class ComponentManager implements IComponentMehtods {
     _components: Map<string, IComponent> = new Map<string, IComponent>();
     addComponent(component: IComponent): this {
         this._components.set(component.constructor.name, component);
 
-        if ("setEntity" in component && typeof (component as any).setEntity === "function") {
-            (component as any).setEntity(this);
+        if ("setObject" in component && typeof (component as any).setObject === "function") {
+            (component as any).setObject(this);
         }
 
         return this
@@ -20,16 +19,11 @@ export abstract class EntityInjector implements IComponentMehtods {
     }
 }
 
-export abstract class ComponentInjector implements IComponent {
-    entity!: Entity;
-    setEntity(entity: Entity): void {
-        this.entity = entity;
-    }
-}
-
-export abstract class PhysicsInjector {
-    entity!: Entity;
-    setEntity(entity: Entity): void {
-        this.entity = entity;
+export abstract class ObjectBinder<T> {
+    object!: T;
+    instance!: new () => T;
+    type: string = this.instance.name;
+    setObject(object: T): void {
+        this.object = object;
     }
 }
