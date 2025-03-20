@@ -1,20 +1,15 @@
 import { SceneDecorator } from "../decorators/SceneDecorator";
+import { IGameObject } from "../interfaces/IGameObject";
 import { IScene } from "../interfaces/IScene";
-import { Entity } from "./Entity";
 import { GameObject } from "./GameObject";
+import { ComponentManager } from "./Injector";
 
 @SceneDecorator.registerScene
-export class Scene implements IScene {
-    private static _id: number = 0;
-    id: number;
+export class Scene extends GameObject {
     canvas: HTMLCanvasElement;
-    entities: Entity[];
-    objects: GameObject[];
 
-    constructor(canvas: HTMLCanvasElement, entities: Entity[] = [], objects: GameObject[] = []) {
-        this.id = Scene._id++;
+    constructor(canvas: HTMLCanvasElement) {
+        super();
         this.canvas = canvas;
-        this.entities = entities;
-        this.objects = objects;
     }
 }
