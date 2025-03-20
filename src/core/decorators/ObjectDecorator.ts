@@ -1,15 +1,16 @@
 import { GameObject } from "../models/GameObject";
+import { GlobalState } from "../state/GlobalState";
 
 export class ObjectDecorator {
 
     static registerObject(constructor: new (...args: any[]) => GameObject){
-            //const globalEntityState = GlobalEntityState.getInstance();
+            const globalState = GlobalState.getInstance();
             const original = constructor;
     
             // Create a new constructor
             const newConstructor = function(...args: any) {
                 const instance = new original(...args);
-                //globalEntityState.entities.push(instance);
+                globalState.add(GameObject, instance);
                 return instance;
             }
     

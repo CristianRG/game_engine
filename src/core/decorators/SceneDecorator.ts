@@ -9,7 +9,7 @@ export class SceneDecorator {
     
         const newConstructor = function(...args: any) {
             const instance = new original(...args);
-            globalState.scenes.push(instance);
+            globalState.add(Scene, instance);
             return instance;
         }
 

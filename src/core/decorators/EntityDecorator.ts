@@ -10,7 +10,7 @@ export class EntityDecorator {
         // Create a new constructor
         const newConstructor = function(...args: any) {
             const instance = new original(...args);
-            globalState.entities.push(instance);
+            globalState.add(Entity, instance);
             return instance;
         }
 
