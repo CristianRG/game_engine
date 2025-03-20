@@ -16,7 +16,7 @@ export class Gravity extends Physics {
     }
 
     public applyPhysics(): void {
-        const transform = this.entity.getComponent(Transform);
+        const transform = this.object.getComponent(Transform);
         if (transform && !this.stop) {
 
             const collisons = this.checkPossibleCollision(transform);
@@ -36,8 +36,8 @@ export class Gravity extends Physics {
     }
 
     private checkPossibleCollision(transform: Transform): Entity | GameObject | undefined {
-        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.entity.id);
-        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.entity.id);
+        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.object.id);
+        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.object.id);
         entities.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
         objects.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
 
@@ -74,7 +74,7 @@ export class Gravity extends Physics {
             return (
                 transform.x < t.x + t.width &&
                 transform.x + transform.width > t.x &&
-                e.id !== this.entity.id
+                e.id !== this.object.id
             )
         })
 
@@ -83,7 +83,7 @@ export class Gravity extends Physics {
             return (
                 transform.x < t.x + t.width &&
                 transform.x + transform.width > t.x &&
-                o.id !== this.entity.id
+                o.id !== this.object.id
             )
         });
 

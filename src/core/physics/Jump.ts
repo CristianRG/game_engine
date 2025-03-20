@@ -19,13 +19,13 @@ export class Jump extends Physics {
     }
 
     public applyPhysics(): void {
-        const transform = this.entity.getComponent(Transform);
+        const transform = this.object.getComponent(Transform);
         if (!transform || !this.apply) return;
 
         const hasGravity = this.checkIfHasGravity();
         if (!hasGravity) return;
 
-        const gravity = this.entity.getComponent(PhysicsComponent)!.physics.find(p => p.type === "gravity") as Gravity;
+        const gravity = this.object.getComponent(PhysicsComponent)!.physics.find(p => p.type === "gravity") as Gravity;
 
         if (!gravity.stop && this.isOnGround(transform)) {
             gravity.stop = true;
@@ -43,7 +43,7 @@ export class Jump extends Physics {
     }
 
     private checkIfHasGravity(): boolean {
-        const physics = this.entity.getComponent(PhysicsComponent);
+        const physics = this.object.getComponent(PhysicsComponent);
         return physics?.physics.some(p => p.type === "gravity") ?? false;
     }
 
@@ -54,7 +54,7 @@ export class Jump extends Physics {
                 transform.x < t.x + t.width &&
                 transform.x + transform.width > t.x &&
                 transform.y + transform.height === t.y &&
-                e.id !== this.entity.id
+                e.id !== this.object.id
             )
         })
 
@@ -64,7 +64,7 @@ export class Jump extends Physics {
                 transform.x < t.x + t.width &&
                 transform.x + transform.width > t.x &&
                 transform.y + transform.height === t.y &&
-                o.id !== this.entity.id
+                o.id !== this.object.id
             )
         });
 
@@ -72,8 +72,8 @@ export class Jump extends Physics {
     }
 
     private checkIfCanJump(transform: Transform): boolean {
-        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.entity.id);
-        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.entity.id);
+        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.object.id);
+        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.object.id);
         entities.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
         objects.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
 

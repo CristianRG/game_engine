@@ -9,13 +9,13 @@ export class Collider extends Component {
     }
 
     public isColliding(collider: Collider): boolean {
-        const entityCollider = this.entity.getComponent(Collider);
-        const otherCollider = collider.entity.getComponent(Collider);
+        const entityCollider = this.object.getComponent(Collider);
+        const otherCollider = collider.object.getComponent(Collider);
 
         if(!entityCollider || !otherCollider) return false;
 
-        const t = this.entity.getComponent(Transform);
-        const otherT = collider.entity.getComponent(Transform);
+        const t = this.object.getComponent(Transform);
+        const otherT = collider.object.getComponent(Transform);
 
         if(!t || !otherT) return false;
 
@@ -39,8 +39,8 @@ export class Collider extends Component {
      * Move this entity to the edge of the other entity using his transform component and the other entity's transform component.
      */
     public collisionEnter(collider: Collider): void {
-        const transform = this.entity.getComponent(Transform);
-        const otherTransform = collider.entity.getComponent(Transform);
+        const transform = this.object.getComponent(Transform);
+        const otherTransform = collider.object.getComponent(Transform);
 
         if (!transform || !otherTransform) return;
 
