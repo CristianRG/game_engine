@@ -1,16 +1,20 @@
-import { GameObject } from "../models/GameObject";
-import { GlobalState } from "../state/GlobalState";
+import type { GameObject } from "../models/GameObject";
 
 export class ObjectDecorator {
 
     static registerObject(constructor: new (...args: any[]) => GameObject){
-            const globalState = GlobalState.getInstance();
             const original = constructor;
     
             // Create a new constructor
             const newConstructor = function(...args: any) {
                 const instance = new original(...args);
-                globalState.add(GameObject, instance);
+                import("../state/GlobalState").then(({ GlobalState }) => { 
+                    const globalState = GlobalState.getInstance();
+                    
+                    import("../models/GameObject").then(({ GameObject }) => {
+                        globalState.add(GameObject, instance);
+                    });
+                });
                 return instance;
             }
     

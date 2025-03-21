@@ -1,16 +1,20 @@
-import { Entity } from "../models/Entity";
-import { GlobalState } from "../state/GlobalState";
+import type { Entity } from "../models/Entity";
 
 export class EntityDecorator {
 
     static registerEntity(constructor: new (...args: any[]) => Entity){
-        const globalState = GlobalState.getInstance();
         const original = constructor;
 
         // Create a new constructor
         const newConstructor = function(...args: any) {
             const instance = new original(...args);
-            globalState.add(Entity, instance);
+            import("../state/GlobalState").then(({ GlobalState }) => { 
+                const globalState = GlobalState.getInstance();
+
+                import("../models/Entity").then(({ Entity }) => {
+                    globalState.add(Entity, instance);
+                });
+             });
             return instance;
         }
 

@@ -1,15 +1,19 @@
-import { Scene } from "../models/Scene";
-import { GlobalState } from "../state/GlobalState";
+import type { Scene } from "../models/Scene";
 
 export class SceneDecorator {
 
     static registerScene(constructor: new (...args: any[]) => Scene) {
         const original = constructor;
-        const globalState = GlobalState.getInstance();
     
         const newConstructor = function(...args: any) {
             const instance = new original(...args);
-            globalState.add(Scene, instance);
+            import("../state/GlobalState").then(({ GlobalState }) => { 
+                const globalState = GlobalState.getInstance();
+                
+                import("../models/Scene").then(({ Scene }) => {
+                    globalState.add(Scene, instance);
+                });
+            });
             return instance;
         }
 
