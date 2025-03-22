@@ -9,10 +9,11 @@ export class SceneDecorator {
             const instance = new original(...args);
             import("../state/GlobalState").then(({ GlobalState }) => { 
                 const globalState = GlobalState.getInstance();
-                
-                import("../models/Scene").then(({ Scene }) => {
-                    globalState.add(Scene, instance);
-                });
+                const exits = globalState.scenes.find((scene) => scene.id === instance.id);
+                if (exits) {
+                    return exits;
+                }
+                globalState.scenes.push(instance);
             });
             return instance;
         }

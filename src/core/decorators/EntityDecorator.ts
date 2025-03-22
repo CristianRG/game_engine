@@ -10,10 +10,11 @@ export class EntityDecorator {
             const instance = new original(...args);
             import("../state/GlobalState").then(({ GlobalState }) => { 
                 const globalState = GlobalState.getInstance();
-
-                import("../models/Entity").then(({ Entity }) => {
-                    globalState.add(Entity, instance);
-                });
+                const exits = globalState.entities.find((entity) => entity.id === instance.id);
+                if (exits) {
+                    return exits;
+                }
+                globalState.entities.push(instance);
              });
             return instance;
         }

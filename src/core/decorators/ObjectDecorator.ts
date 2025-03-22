@@ -8,12 +8,13 @@ export class ObjectDecorator {
             // Create a new constructor
             const newConstructor = function(...args: any) {
                 const instance = new original(...args);
-                import("../state/GlobalState").then(({ GlobalState }) => { 
+                import("../state/GlobalState").then(({ GlobalState }) => {
                     const globalState = GlobalState.getInstance();
-                    
-                    import("../models/GameObject").then(({ GameObject }) => {
-                        globalState.add(GameObject, instance);
-                    });
+                    const exits = globalState.objects.find((object) => object.id === instance.id);
+                    if (exits) {
+                        return exits;
+                    }
+                    globalState.objects.push(instance);
                 });
                 return instance;
             }
