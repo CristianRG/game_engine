@@ -1,15 +1,20 @@
 import { Renderable } from "../../components/Renderable";
+import { Entities } from "../../components/scene/Entities";
+import { GameObjects } from "../../components/scene/GameObjects";
+import { Sprite } from "../../components/Sprite";
 import { Transform } from "../../components/Transform";
 import { IRenderStrategy } from "../interfaces/IScene";
 import { Entity } from "../models/Entity";
 import { GameObject } from "../models/GameObject";
 import { Scene } from "../models/Scene";
+import { SpriteAnimationController } from "../models/SpriteMethods";
 
-export class RenderScene implements IRenderStrategy {
+export class RenderScene extends SpriteAnimationController implements IRenderStrategy {
     scene: Scene;
     canvas: HTMLCanvasElement;
 
     constructor(scene: Scene) {
+        super();
         this.canvas = scene.canvas;
         this.scene = scene;
     }
@@ -18,37 +23,66 @@ export class RenderScene implements IRenderStrategy {
         const ctx = this.canvas.getContext("2d");
         if (ctx) {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-            const entities = this.scene.entities;
-            const objects = this.scene.objects;
-            this.renderEntities(entities, ctx);
-            this.renderObjects(objects, ctx);
+            this.renderScene(ctx);
+            this.renderElements(ctx);
         }
     }
 
-    renderEntities(entities: Entity[], ctx: CanvasRenderingContext2D): void {
-        for (const entity of entities) {
+    renderScene(ctx: CanvasRenderingContext2D): void {
+        
+        if (this.scene.hasComponent(Transform)) {
 
-            const transform = entity.getComponent(Transform);
-            const entityRenderable = entity.getComponent(Renderable);
-            if (transform && entityRenderable) {
-
-                ctx.fillStyle = entityRenderable?.color || "black";
+            if (this.scene.hasComponent(Renderable)) {
+                const transform = this.scene.getComponent(Transform)!;
+                const renderable = this.scene.getComponent(Renderable)!;
+                ctx.fillStyle = renderable.color;
                 ctx.fillRect(transform.x, transform.y, transform.width, transform.height);
+            }
+
+            if (this.scene.hasComponent(Sprite)) {
+                const sprite = this.scene.getComponent(Sprite)!;
+                this.play(ctx, [sprite])
             }
         }
     }
 
-    renderObjects(objects: GameObject[], ctx: CanvasRenderingContext2D): void {
-        for (const object of objects) {
+    renderElements(ctx: CanvasRenderingContext2D): void {
+        let entities: Entity[] = [];
+        let gameObjects: GameObject[] = [];
 
-            const transform = object.getComponent(Transform);
-            const objectRenderable = object.getComponent(Renderable);
+        if (this.scene.hasComponent(Entities)) {
+            entities = this.scene.getComponent(Entities)!.getEntities();
+        }
 
-            if (transform) {
+        if (this.scene.hasComponent(GameObjects)) {
+            gameObjects = this.scene.getComponent(GameObjects)!.getObjects();
+        }
 
-                ctx.fillStyle = objectRenderable?.color || "black";
+        for (const entity of entities) {
+            if (entity.hasComponent(Transform) && entity.hasComponent(Renderable)) {
+                const transform = entity.getComponent(Transform)!;
+                const renderable = entity.getComponent(Renderable)!;
+                ctx.fillStyle = renderable.color;
                 ctx.fillRect(transform.x, transform.y, transform.width, transform.height);
+            }
+
+            if (entity.hasComponent(Sprite)) {
+                const sprite = entity.getComponent(Sprite)!;
+                this.play(ctx, [sprite]);
+            }
+        }
+
+        for (const object of gameObjects) {
+            if (object.hasComponent(Transform) && object.hasComponent(Renderable)) {
+                const transform = object.getComponent(Transform)!;
+                const renderable = object.getComponent(Renderable)!;
+                ctx.fillStyle = renderable.color;
+                ctx.fillRect(transform.x, transform.y, transform.width, transform.height);
+            }
+
+            if (object.hasComponent(Sprite)) {
+                const sprite = object.getComponent(Sprite)!;
+                this.play(ctx, [sprite]);
             }
         }
     }
