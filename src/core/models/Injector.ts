@@ -21,8 +21,6 @@ export abstract class ComponentManager implements IComponentMehtods {
 
 export abstract class ObjectBinder<T> {
     object!: T;
-    instance!: new () => T;
-    type: string = this.instance.name;
     setObject(object: T): void {
         this.object = object;
     }
