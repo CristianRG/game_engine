@@ -14,8 +14,15 @@ export class Sprite extends Component {
         super();
     }
 
-    getCurrentSprite(): SpriteModel {
-        return this.sprite[this.currentSpriteIndex];
+    private bindObject(sprite: SpriteModel): void {
+        sprite.setObject(this.object);
+    }
+
+    getCurrentSprite(): SpriteModel | null {
+        if (!this.sprite[this.currentSpriteIndex]?.object && this.sprite.length > 0) {
+            this.bindObject(this.sprite[this.currentSpriteIndex]);
+        }
+        return this.sprite[this.currentSpriteIndex] ?? null;
     }
 
     nextSprite(): void {
