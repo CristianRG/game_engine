@@ -4,7 +4,8 @@ import { Sprite as SpriteModel } from "./Sprite";
 import { Transform } from "../../components/Transform";
 
 export class SpriteAnimationController implements ISpriteSheetDrawMethods {
-    stopped: boolean = false;
+    stopped: boolean = true;
+    private index: number = 0;
 
     draw(ctx: CanvasRenderingContext2D, sprites: Sprite[]): void {
         for (const sprite of sprites) {
