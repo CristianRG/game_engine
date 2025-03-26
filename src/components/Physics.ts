@@ -11,7 +11,7 @@ export class Physics extends Component {
     public applyPhysics(): void {
         if (this.physics.length > 0) {
             for (const physic of this.physics) {
-                if (!physic.entity) { physic.setEntity(this.entity) };
+                if (!physic.object) { physic.setObject(this.object) };
                 physic.applyPhysics();
             }
         }
