@@ -1,4 +1,4 @@
-import { Component } from "../core/models/Component";
+import { Component } from "../../core/models/Component";
 
 export class Transform extends Component {
     private movementTimeout: number | null = null;

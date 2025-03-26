@@ -8,30 +8,31 @@ import { GlobalState } from "../state/GlobalState";
 import { Collider } from "../strategy/Collider";
 import { InputKeyEvent } from "../strategy/InputKeyEvent";
 import { Physics } from "../strategy/Physics";
-import { RenderByRenderable } from "../strategy/RenderByRenderable";
-import { RenderBySprite } from "../strategy/RenderBySprite";
 import { RenderScene } from "../strategy/RenderScene";
 import { RenderSceneStrategy } from "../strategy/RenderSceneStrategy";
 import { ECS } from "./ECS";
 import { Scene } from "./Scene";
-import { Sprite } from "../../components/Sprite";
 
 export class Engine implements IEngine {
     isRunning: boolean;
     lastTime: number;
     ecs: IEngineControllerSystem;
+    private scene: Scene;
 
     constructor(canvas: HTMLCanvasElement) {
         this.isRunning = false;
         this.lastTime = 0;
         this.ecs = ECS.getInstance();
+        GlobalState.getInstance().scenes.push(new Scene(canvas));
+        GlobalState.getInstance().currentScene = GlobalState.getInstance().scenes[0];
+        this.scene = GlobalState.getInstance().currentScene as Scene;
+
         this.ecs.addSystem(new ColliderSystem(new Collider()));
         this.ecs.addSystem(new PhysicSystem(new Physics()));
         this.ecs.addSystem(new InputKeySystem(false, new InputKeyEvent()));
-        this.ecs.addSystem(new RenderSystem(new RenderScene(new Scene(canvas))));
         this.ecs.addSystem(new RenderSystem(new RenderSceneStrategy([
-           new RenderBySprite(canvas.getContext("2d") as CanvasRenderingContext2D, [])
-        ])))
+            new RenderScene(this.scene)
+        ])));
     }
 
     loop(timestamp: number): void {

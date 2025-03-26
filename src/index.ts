@@ -24,9 +24,15 @@ export { Jump } from "./core/physics/Jump";
 export { GlobalState } from "./core/state/GlobalState";
 
 // Components
-export { Transform } from "./components/Transform";
-export { Renderable } from "./components/Renderable";
-export { InputKeys } from "./components/InputKeys";
-export { Collider } from "./components/Collider";
-export { Physics as PhysicsComponent } from "./components/Physics";
-export { Sprite as SpriteComponent } from "./components/Sprite";
+
+// Common components
+export { Transform } from "./components/common/Transform";
+export { Renderable } from "./components/common/Renderable";
+export { InputKeys } from "./components/common/InputKeys";
+export { Collider } from "./components/common/Collider";
+export { Physics as PhysicsComponent } from "./components/common/Physics";
+export { Sprite as SpriteComponent } from "./components/common/Sprite";
+
+// Scene components
+export { Entities } from "./components/scene/Entities";
+export { GameObjects } from "./components/scene/GameObjects";

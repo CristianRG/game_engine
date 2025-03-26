@@ -1,7 +1,7 @@
-import { Renderable } from "../../components/Renderable";
+import { Renderable } from "../../components/common/Renderable";
 import { Entities } from "../../components/scene/Entities";
 import { GameObjects } from "../../components/scene/GameObjects";
-import { Transform } from "../../components/Transform";
+import { Transform } from "../../components/common/Transform";
 import { IRenderEntityStrategy } from "../interfaces/IStrategy";
 import { Entity } from "../models/Entity";
 import { GameObject } from "../models/GameObject";
