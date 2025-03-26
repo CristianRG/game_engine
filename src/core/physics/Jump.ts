@@ -4,10 +4,13 @@ import { Physics } from "../models/Physics";
 import { Physics as PhysicsComponent } from "../../components/Physics";
 import { Gravity } from "./Gravity";
 import { GlobalState } from "../state/GlobalState";
+import { Entities } from "../../components/scene/Entities";
+import { GameObjects } from "../../components/scene/GameObjects";
+import { Scene } from "../models/Scene";
 
 export class Jump extends Physics {
     public type: "physics" | "gravity" | "jump" = "jump";
-    private scene = GlobalState.getInstance().scenes[0];
+    private scene = GlobalState.getInstance().currentScene as Scene;
     private movementTimeout: number | null = null;
     public apply: boolean = false;
     public stop: boolean = true;
@@ -48,32 +51,46 @@ export class Jump extends Physics {
     }
 
     private isOnGround(transform: Transform): boolean {
-        const entity = this.scene.entities.find(e => {
-            const t = e.getComponent(Transform)!;
-            return (
-                transform.x < t.x + t.width &&
-                transform.x + transform.width > t.x &&
-                transform.y + transform.height === t.y &&
-                e.id !== this.object.id
-            )
-        })
+        let entity: Entity | undefined;
+        let object: Entity | undefined;
+        if (this.scene.hasComponent(Entities)){
+            entity = this.scene.getComponent(Entities)!.getEntities().find(e => {
+                const t = e.getComponent(Transform)!;
+                return (
+                    transform.x < t.x + t.width &&
+                    transform.x + transform.width > t.x &&
+                    transform.y + transform.height === t.y &&
+                    e !== this.object
+                )
+            })
+        }
 
-        const object = this.scene.objects.find(o => {
-            const t = o.getComponent(Transform)!;
-            return (
-                transform.x < t.x + t.width &&
-                transform.x + transform.width > t.x &&
-                transform.y + transform.height === t.y &&
-                o.id !== this.object.id
-            )
-        });
-
+        if (this.scene.hasComponent(GameObjects)){
+            object = this.scene.getComponent(GameObjects)!.getObjects().find(o => {
+                const t = o.getComponent(Transform)!;
+                return (
+                    transform.x < t.x + t.width &&
+                    transform.x + transform.width > t.x &&
+                    transform.y + transform.height === t.y &&
+                    o !== this.object
+                )
+            })
+        }
         return entity !== undefined || object !== undefined;
     }
 
     private checkIfCanJump(transform: Transform): boolean {
-        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.object.id);
-        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.object.id);
+        let entities: Entity[] = [];
+        let objects: Entity[] = [];
+
+        if (this.scene.hasComponent(Entities)) {
+            entities = this.scene.getComponent(Entities)!.getEntities();
+        }
+
+        if (this.scene.hasComponent(GameObjects)) {
+            objects = this.scene.getComponent(GameObjects)!.getObjects();
+        }
+
         entities.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
         objects.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
 
@@ -91,10 +108,9 @@ export class Jump extends Physics {
             return (
                 transform.x < t.x + t.width &&
                 transform.x + transform.width > t.x &&
-                transform.y <= t.y + t.height
+                transform.y === t.y + t.height
             )
         });
-
         return entity === undefined && object === undefined;
     }
 

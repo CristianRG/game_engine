@@ -1,13 +1,16 @@
+import { Entities } from "../../components/scene/Entities";
+import { GameObjects } from "../../components/scene/GameObjects";
 import { Transform } from "../../components/Transform";
 import { Entity } from "../models/Entity";
 import { GameObject } from "../models/GameObject";
 import { Physics } from "../models/Physics";
+import { Scene } from "../models/Scene";
 import { GlobalState } from "../state/GlobalState";
 
 export class Gravity extends Physics {
     public type: "physics" | "gravity" | "jump" = "gravity";
     private gravity: number = 9.8;
-    private scene = GlobalState.getInstance().scenes[0];
+    private scene = GlobalState.getInstance().currentScene as Scene;
     public stop: boolean = false;
 
     constructor(gravity?: number) {
@@ -36,8 +39,17 @@ export class Gravity extends Physics {
     }
 
     private checkPossibleCollision(transform: Transform): Entity | GameObject | undefined {
-        const entities = this.scene.entities.filter(e => e.hasComponent(Transform) && e.id !== this.object.id);
-        const objects = this.scene.objects.filter(o => o.hasComponent(Transform) && o.id !== this.object.id);
+        let entities: Entity[] = [];
+        let objects: GameObject[] = [];
+
+        if (this.scene.hasComponent(Entities)) {
+            entities = this.scene.getComponent(Entities)!.getEntities();
+        }
+
+        if (this.scene.hasComponent(GameObjects)) {
+            objects = this.scene.getComponent(GameObjects)!.getObjects();
+        }
+
         entities.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
         objects.sort((a, b) => a.getComponent(Transform)!.y - b.getComponent(Transform)!.y);
 
@@ -69,7 +81,17 @@ export class Gravity extends Physics {
     }
 
     private checkEmptySpace(transform: Transform): boolean {
-        const entity = this.scene.entities.find(e => {
+        let entities: Entity[] = [];
+        let objects: GameObject[] = [];
+
+        if (this.scene.hasComponent(Entities)) {
+            entities = this.scene.getComponent(Entities)!.getEntities();
+        }
+
+        if (this.scene.hasComponent(GameObjects)) {
+            objects = this.scene.getComponent(GameObjects)!.getObjects();
+        }
+        const entity = entities.find(e => {
             const t = e.getComponent(Transform)!;
             return (
                 transform.x < t.x + t.width &&
@@ -78,7 +100,7 @@ export class Gravity extends Physics {
             )
         })
 
-        const object = this.scene.objects.find(o => {
+        const object = objects.find(o => {
             const t = o.getComponent(Transform)!;
             return (
                 transform.x < t.x + t.width &&
