@@ -1,7 +1,7 @@
 import { IColliderStrategy } from "../interfaces/IStrategy";
 import { GlobalState } from "../state/GlobalState";
-import { Collider as ColliderComponent } from "../../components/Collider";
-import { Transform } from "../../components/Transform";
+import { Collider as ColliderComponent } from "../../components/common/Collider";
+import { Transform } from "../../components/common/Transform";
 export class Collider implements IColliderStrategy {
     public globalState = GlobalState.getInstance();
     public entitiesColliderExecuting = false;

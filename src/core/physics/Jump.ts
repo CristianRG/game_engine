@@ -1,7 +1,7 @@
-import { Transform } from "../../components/Transform";
+import { Transform } from "../../components/common/Transform";
 import { Entity } from "../models/Entity";
 import { Physics } from "../models/Physics";
-import { Physics as PhysicsComponent } from "../../components/Physics";
+import { Physics as PhysicsComponent } from "../../components/common/Physics";
 import { Gravity } from "./Gravity";
 import { GlobalState } from "../state/GlobalState";
 import { Entities } from "../../components/scene/Entities";

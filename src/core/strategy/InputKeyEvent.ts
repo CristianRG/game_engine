@@ -1,4 +1,4 @@
-import { InputKeys } from "../../components/InputKeys";
+import { InputKeys } from "../../components/common/InputKeys";
 import { IKeyEventStrategy } from "../interfaces/IStrategy";
 import { GlobalState } from "../state/GlobalState";
 

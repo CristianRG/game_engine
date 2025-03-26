@@ -1,7 +1,7 @@
 import { ISpriteSheetDrawMethods } from "../interfaces/ISpriteSheet";
-import { Sprite } from "../../components/Sprite";
+import { Sprite } from "../../components/common/Sprite";
 import { Sprite as SpriteModel } from "./Sprite";
-import { Transform } from "../../components/Transform";
+import { Transform } from "../../components/common/Transform";
 
 export class SpriteAnimationController implements ISpriteSheetDrawMethods {
     stopped: boolean = true;

@@ -1,4 +1,4 @@
-import { Sprite } from "../../components/Sprite";
+import { Sprite } from "../../components/common/Sprite";
 
 export interface ISpriteSheet {
     image: HTMLImageElement;

@@ -1,6 +1,6 @@
 import { Entities } from "../../components/scene/Entities";
 import { GameObjects } from "../../components/scene/GameObjects";
-import { Transform } from "../../components/Transform";
+import { Transform } from "../../components/common/Transform";
 import { Entity } from "../models/Entity";
 import { GameObject } from "../models/GameObject";
 import { Physics } from "../models/Physics";

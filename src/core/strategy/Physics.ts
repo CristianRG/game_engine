@@ -1,6 +1,6 @@
 import { IPhysicStrategy } from "../interfaces/IStrategy";
 import { GlobalState } from "../state/GlobalState";
-import { Physics as PhysicComponent } from "../../components/Physics";
+import { Physics as PhysicComponent } from "../../components/common/Physics";
 
 export class Physics implements IPhysicStrategy {
     private entities = GlobalState.getInstance().entities;

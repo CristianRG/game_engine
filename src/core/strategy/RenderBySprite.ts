@@ -1,5 +1,5 @@
 import { IRenderEntityStrategy } from "../interfaces/IStrategy";
-import { Sprite } from "../../components/Sprite";
+import { Sprite } from "../../components/common/Sprite";
 import { SpriteAnimationController } from "../models/SpriteMethods";
 import { GlobalState } from "../state/GlobalState";
 import { Scene } from "../models/Scene";
