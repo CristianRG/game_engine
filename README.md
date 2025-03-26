@@ -14,6 +14,16 @@ CDN
     </script>
 ```
 
+NPM
+```bash
+npm i @cristianrg/game_engine
+```
+
+PNPM
+```bash
+pnpm add @cristianrg/game_engine
+```
+
 If you want to use the source code to extend it or develop a game using TypeScript, it is recommended to install the following dependencies to facilitate development (you can configure your environment and decide which tools you do not want to use):
 
 ```bash
