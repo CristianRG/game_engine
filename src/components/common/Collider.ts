@@ -1,4 +1,4 @@
-import { Component } from "../core/models/Component";
+import { Component } from "../../core/models/Component";
 import { Transform } from "./Transform";
 
 export class Collider extends Component {

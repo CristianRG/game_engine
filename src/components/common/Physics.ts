@@ -1,5 +1,5 @@
-import { Component } from "../core/models/Component";
-import { Physics as BasePhysics } from "../core/models/Physics";
+import { Component } from "../../core/models/Component";
+import { Physics as BasePhysics } from "../../core/models/Physics";
 
 export class Physics extends Component {
     constructor(

@@ -1,5 +1,5 @@
-import { Component } from "../core/models/Component";
-import { Sprite as SpriteModel } from "../core/models/Sprite";
+import { Component } from "../../core/models/Component";
+import { Sprite as SpriteModel } from "../../core/models/Sprite";
 
 export class Sprite extends Component {
     
