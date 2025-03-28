@@ -8,18 +8,19 @@ import { Entity } from "../models/Entity";
 import { GameObject } from "../models/GameObject";
 import { Scene } from "../models/Scene";
 import { SpriteAnimationController } from "../models/SpriteMethods";
+import { GlobalState } from "../state/GlobalState";
 
 export class RenderScene extends SpriteAnimationController implements IRenderStrategy {
-    scene: Scene;
-    canvas: HTMLCanvasElement;
+    scene: Scene | undefined = undefined;
+    canvas: HTMLCanvasElement | undefined = undefined;
 
-    constructor(scene: Scene) {
+    constructor() {
         super();
-        this.canvas = scene.canvas;
-        this.scene = scene;
     }
     
     render(): void {
+        this.scene = GlobalState.getInstance().currentScene as Scene;
+        this.canvas = this.scene.canvas;
         const ctx = this.canvas.getContext("2d");
         if (ctx) {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -30,7 +31,7 @@ export class RenderScene extends SpriteAnimationController implements IRenderStr
 
     renderScene(ctx: CanvasRenderingContext2D): void {
         
-        if (this.scene.hasComponent(Transform)) {
+        if (this.scene?.hasComponent(Transform)) {
 
             if (this.scene.hasComponent(Renderable)) {
                 const transform = this.scene.getComponent(Transform)!;
@@ -50,11 +51,11 @@ export class RenderScene extends SpriteAnimationController implements IRenderStr
         let entities: Entity[] = [];
         let gameObjects: GameObject[] = [];
 
-        if (this.scene.hasComponent(Entities)) {
+        if (this.scene?.hasComponent(Entities)) {
             entities = this.scene.getComponent(Entities)!.getEntities();
         }
 
-        if (this.scene.hasComponent(GameObjects)) {
+        if (this.scene?.hasComponent(GameObjects)) {
             gameObjects = this.scene.getComponent(GameObjects)!.getObjects();
         }
 
