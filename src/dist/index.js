@@ -322,28 +322,6 @@ let Physics$2 = class Physics extends Component {
     }
 };
 
-let Physics$1 = class Physics {
-    constructor() {
-        this.entities = GlobalState.getInstance().entities;
-    }
-    applyPhysics() {
-        const entities = this.entities.filter(e => e.getComponent(Physics$2));
-        for (const entity of entities) {
-            const physics = entity.getComponent(Physics$2);
-            if (physics) {
-                physics.applyPhysics();
-            }
-        }
-    }
-};
-
-class Renderable extends Component {
-    constructor(color = "black") {
-        super();
-        this.color = color;
-    }
-}
-
 class Entities extends Component {
     constructor() {
         super();
@@ -391,6 +369,41 @@ class GameObjects extends Component {
         if (index > -1) {
             this.objects.splice(index, 1);
         }
+    }
+}
+
+let Physics$1 = class Physics {
+    constructor() {
+        this.entities = [];
+        this.gameObjects = [];
+    }
+    applyPhysics() {
+        const scene = GlobalState.getInstance().currentScene;
+        if (scene.hasComponent(Entities)) {
+            this.entities = scene.getComponent(Entities).getEntities().filter(entity => entity.hasComponent(Physics$2));
+        }
+        if (scene.hasComponent(GameObjects)) {
+            this.gameObjects = scene.getComponent(GameObjects).getObjects().filter(object => object.hasComponent(Physics$2));
+        }
+        for (const entity of this.entities) {
+            const physics = entity.getComponent(Physics$2);
+            if (physics) {
+                physics.applyPhysics();
+            }
+        }
+        for (const object of this.gameObjects) {
+            const physics = object.getComponent(Physics$2);
+            if (physics) {
+                physics.applyPhysics();
+            }
+        }
+    }
+};
+
+class Renderable extends Component {
+    constructor(color = "black") {
+        super();
+        this.color = color;
     }
 }
 
@@ -450,12 +463,14 @@ class SpriteAnimationController {
 }
 
 class RenderScene extends SpriteAnimationController {
-    constructor(scene) {
+    constructor() {
         super();
-        this.canvas = scene.canvas;
-        this.scene = scene;
+        this.scene = undefined;
+        this.canvas = undefined;
     }
     render() {
+        this.scene = GlobalState.getInstance().currentScene;
+        this.canvas = this.scene.canvas;
         const ctx = this.canvas.getContext("2d");
         if (ctx) {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -464,7 +479,8 @@ class RenderScene extends SpriteAnimationController {
         }
     }
     renderScene(ctx) {
-        if (this.scene.hasComponent(Transform)) {
+        var _a;
+        if ((_a = this.scene) === null || _a === void 0 ? void 0 : _a.hasComponent(Transform)) {
             if (this.scene.hasComponent(Renderable)) {
                 const transform = this.scene.getComponent(Transform);
                 const renderable = this.scene.getComponent(Renderable);
@@ -478,12 +494,13 @@ class RenderScene extends SpriteAnimationController {
         }
     }
     renderElements(ctx) {
+        var _a, _b;
         let entities = [];
         let gameObjects = [];
-        if (this.scene.hasComponent(Entities)) {
+        if ((_a = this.scene) === null || _a === void 0 ? void 0 : _a.hasComponent(Entities)) {
             entities = this.scene.getComponent(Entities).getEntities();
         }
-        if (this.scene.hasComponent(GameObjects)) {
+        if ((_b = this.scene) === null || _b === void 0 ? void 0 : _b.hasComponent(GameObjects)) {
             gameObjects = this.scene.getComponent(GameObjects).getObjects();
         }
         for (const entity of entities) {
@@ -617,14 +634,14 @@ class Engine {
         this.isRunning = false;
         this.lastTime = 0;
         this.ecs = ECS.getInstance();
-        GlobalState.getInstance().scenes.push(new Scene(canvas));
-        GlobalState.getInstance().currentScene = GlobalState.getInstance().scenes[0];
-        this.scene = GlobalState.getInstance().currentScene;
+        const scene = new Scene(canvas);
+        GlobalState.getInstance().scenes.push(scene);
+        GlobalState.getInstance().currentScene = scene;
         this.ecs.addSystem(new ColliderSystem(new Collider()));
         this.ecs.addSystem(new PhysicSystem(new Physics$1()));
         this.ecs.addSystem(new InputKeySystem(false, new InputKeyEvent()));
         this.ecs.addSystem(new RenderSystem(new RenderSceneStrategy([
-            new RenderScene(this.scene)
+            new RenderScene()
         ])));
     }
     loop(timestamp) {
