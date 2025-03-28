@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "./src/dist",
         "target": "ES6",
         "module": "ESNext",
         "outDir": "./src/dist",
@@ -12,5 +14,5 @@
         "moduleResolution": "node"
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "src/tests"]
 }

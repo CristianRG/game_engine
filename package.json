@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Game engine for 2D games using canvas element with TypeScript",
   "main": "src/dist/index.js",
+  "types": "src/dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/CristianRG/game_engine"
