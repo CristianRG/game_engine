@@ -1,5 +1,8 @@
 import { Component } from "../../core/models/Component";
-
+/**
+ * Transform component
+ * This component is used to move the entity or gameObject in the scene.
+ */
 export class Transform extends Component {
     private movementTimeout: number | null = null;
     private readonly MOVEMENT_TIMEOUT_DURATION = 100; // ms
