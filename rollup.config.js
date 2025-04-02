@@ -4,11 +4,28 @@ import terser from "@rollup/plugin-terser";
 
 export default {
     input: "src/index.ts",
-    output: {
-        file: "dist/index.min.js",
-        format: "es",
-        sourcemap: true
-    },
+    output: [
+        {
+            file: "dist/index.js",
+            format: "es",
+            sourcemap: true
+        },
+        {
+            file: "dist/index.min.js",
+            format: "es",
+            sourcemap: true,
+            plugins: [
+                terser({
+                    compress: {
+                        drop_console: true
+                    },
+                    format: {
+                        comments: false
+                    }
+                })
+            ]
+        }
+    ],
     plugins: [
         resolve({
             extensions: [".ts", ".js"]
@@ -16,13 +33,5 @@ export default {
         typescript({
             tsconfig: "./tsconfig.json"
         }),
-        terser({
-            compress: {
-                drop_console: true
-            },
-            format: {
-                comments: false
-            }
-        })
     ]
 }

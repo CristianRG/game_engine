@@ -1,5 +1,5 @@
 node_modules
 src/public
 src/tests
-src/dist/*.js.map
+dist/*.js.map
 .npmignore
