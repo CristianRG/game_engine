@@ -7,7 +7,10 @@ import { GlobalState } from "../state/GlobalState";
 import { Entities } from "../../components/scene/Entities";
 import { GameObjects } from "../../components/scene/GameObjects";
 import { Scene } from "../models/Scene";
-
+/**
+ * * Jump class to apply jump to an object (the object is a reference to an entity or a game object).
+ * * The jump is applied to the object if it is not colliding with any other object or entity or if it is on the ground. 
+ */
 export class Jump extends Physics {
     public type: "physics" | "gravity" | "jump" = "jump";
     private scene = GlobalState.getInstance().currentScene as Scene;

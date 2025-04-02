@@ -6,7 +6,10 @@ import { GameObject } from "../models/GameObject";
 import { Physics } from "../models/Physics";
 import { Scene } from "../models/Scene";
 import { GlobalState } from "../state/GlobalState";
-
+/**
+ * * Gravity class to apply gravity to an object (the object is a reference to an entity or a game object).
+ * * The gravity is applied to the object if it is not colliding with any other object or entity.
+ */
 export class Gravity extends Physics {
     public type: "physics" | "gravity" | "jump" = "gravity";
     private gravity: number = 9.8;
