@@ -5,7 +5,7 @@ import terser from "@rollup/plugin-terser";
 export default {
     input: "src/index.ts",
     output: {
-        file: "src/dist/index.min.js",
+        file: "dist/index.min.js",
         format: "es",
         sourcemap: true
     },
