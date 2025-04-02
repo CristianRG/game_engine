@@ -3,7 +3,10 @@ import { Entity } from "./Entity";
 import { GameObject } from "./GameObject";
 import { ObjectBinder } from "./Injector";
 import { Scene } from "./Scene";
-
+/**
+ * Sprite is a class that represents a sprite sheet in the game engine.
+ * It is a base class for all sprite sheets and provides a incremental ID for each sprite sheet.
+ */
 export class Sprite extends ObjectBinder<Entity | GameObject | Scene> implements ISpriteSheet {
     imageSrc: string;
     image: HTMLImageElement = new Image();
@@ -37,7 +40,9 @@ export class Sprite extends ObjectBinder<Entity | GameObject | Scene> implements
         this.initialY = initialY ?? 0;
         this.loadImage();
     }
-
+    /**
+     * This method is used to load the image for the sprite sheet.
+     */
     private loadImage(): void {
         this.image.src = this.imageSrc;
         this.image.onload = () => {

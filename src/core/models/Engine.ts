@@ -13,6 +13,9 @@ import { RenderSceneStrategy } from "../strategy/RenderSceneStrategy";
 import { ECS } from "./ECS";
 import { Scene } from "./Scene";
 
+/**
+ * Engine is the main class that manages the game loop and the execution of systems.
+ */
 export class Engine implements IEngine {
     isRunning: boolean;
     lastTime: number;
