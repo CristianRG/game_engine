@@ -1,11 +1,13 @@
 import type { GameObject } from "../models/GameObject";
-
+/**
+ * ObjectDecorator is a decorator that registers an object in the global state.
+ * It is used to register objects in the global state when they are created.
+ */
 export class ObjectDecorator {
 
     static registerObject(constructor: new (...args: any[]) => GameObject){
             const original = constructor;
     
-            // Create a new constructor
             const newConstructor = function(...args: any) {
                 const instance = new original(...args);
                 import("../state/GlobalState").then(({ GlobalState }) => {
@@ -19,9 +21,7 @@ export class ObjectDecorator {
                 return instance;
             }
     
-            // Copy prototype so intanceof operator still works
             newConstructor.prototype = original.prototype;
-            // Copy static properties
             Object.assign(newConstructor, original);
     
             return newConstructor as unknown as typeof GameObject;
