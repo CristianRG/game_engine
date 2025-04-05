@@ -1,25 +1,9 @@
-# Introduction
+# Welcome to @cristianrg/game_engine
 
-Welcome to **@cristianrg/game_engine**. 
-A game engine written in TypeScript and transpiled to JavaScript.
+## What is this package?
+
+A game engine written in TypeScript and transpiled to JavaScript.  
 It includes features that allow you to create games directly from the browser in a simple and easy way, thanks to the flexibility to modify or scale the source code.
-
-## Quick start
-
-### Installation
-
-To install it in your project, use:
-
-npm
-```bash
-npm i -D @cristianrg/game_engine
-```
-pnpm
-```bash
-pnpm add -D @cristianrg/game_engine
-```
-
-### Example
 
 Here is a quick and simple example using TypeScript on how to use it in your project:
 
@@ -39,5 +23,13 @@ scene.getComponent(Entities)!.addEntity(entity);
 engine.start();
 ```
 
-If everything went well, you should see the following:
-![quick start example](/quickstart.png)
+## Live Example
+
+<GameEnginePlayground />
+
+The code above demonstrates the core features of the engine:
+
+* **Engine**: The main class responsible for the engine's functionality.
+* **GlobalState**: A class instantiated when the engine starts. It allows you to retrieve some instantiated objects.
+* **Scene**: This class is used as a reference when rendering elements on the canvas.
+* **Entity**: This class is used to create entities within the engine. An example could be a `Player`
