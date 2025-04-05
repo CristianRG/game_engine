@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Engine, GlobalState, Entity, Entities, Transform, Renderable, InputKeys } from "@cristianrg/game_engine";
 import { onMounted } from "vue";
 
-onMounted(() => {
+onMounted(async () => {
+    // Dynamically import the game engine to avoid bundling issues
+    // and to ensure that the engine is only loaded when needed
+    const { Engine, GlobalState, Entity, Entities, Transform, Renderable, InputKeys } = await import("@cristianrg/game_engine");
     // create engine and get the current scene from the global state
     const canvas = document.querySelector("canvas") as HTMLCanvasElement;
     if (!canvas) throw new Error("Canvas not found");
