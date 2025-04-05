@@ -85,5 +85,6 @@ Remember to import `setupGame` from `game.ts`.
 
 ## Result
 To move, remember to use the keys "a", "w", "s", and "d".
-
-<QuickStart />
+<ClientOnly>
+  <QuickStart />
+</ClientOnly>

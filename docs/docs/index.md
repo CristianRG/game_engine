@@ -24,9 +24,9 @@ engine.start();
 ```
 
 ## Live Example
-
-<GameEnginePlayground />
-
+<ClientOnly>
+  <GameEnginePlayground />
+</ClientOnly>
 The code above demonstrates the core features of the engine:
 
 * **Engine**: The main class responsible for the engine's functionality.
