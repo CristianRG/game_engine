@@ -5,6 +5,7 @@ export default defineConfig({
     description: 'A game engine built with TypeScript',
     lang: 'en-US',
     lastUpdated: true,
+    base: '/game_engine/',
     themeConfig: {
         nav: [
             { text: 'GitHub', link: 'https://github.com/CristianRG/game_engine' },
