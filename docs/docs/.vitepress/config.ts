@@ -26,14 +26,16 @@ export default defineConfig({
                     { text: 'CDN', link: '/installation/cdn' },
                 ],
             },
-            // {
-            //     text: 'API',
-            //     items: [
-            //         { text: 'Engine', link: '/api/engine' },
-            //         { text: 'Scene', link: '/api/scene' },
-            //         { text: 'Entity', link: '/api/entity' },
-            //     ],
-            // },
+            {
+                text: 'API',
+                items: [
+                    { text: 'Component', link: '/api/component' },
+                    // { text: 'ComponentManager', link: '/api/component-manager' },
+                    // { text: 'Entities & GameObjects', link: '/api/entities-and-gameobjects' },
+                    // { text: 'System', link: '/api/system' },
+                    // { text: 'GlobalState', link: '/api/globalstate' },
+                ],
+            },
             // {
             //     text: 'Examples',
             //     items: [
