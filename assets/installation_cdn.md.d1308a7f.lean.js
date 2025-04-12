@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as l}from"./app.bb9e1715.js";const C=JSON.parse('{"title":"CDN","description":"","frontmatter":{},"headers":[],"relativePath":"installation/cdn.md","lastUpdated":1744166887000}'),o={name:"installation/cdn.md"},p=l("",9),t=[p];function e(c,r,D,F,y,i){return a(),n("div",null,t)}const h=s(o,[["render",e]]);export{C as __pageData,h as default};
