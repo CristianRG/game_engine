@@ -39,4 +39,4 @@ engine.start();
 ```
 
 If everything went well, you should see the following:
-![quick start example](/quickstart.png)
+![quick start example](https://cristianrg.github.io/game_engine/quickstart.png)
