@@ -32,6 +32,7 @@ export default defineConfig({
                     { text: 'Component', link: '/api/component' },
                     { text: 'Entity', link: '/api/entity' },
                     { text: 'GameObject', link: '/api/gameobject' },
+                    { text: 'Scene', link: '/api/scene' },
                     { text: 'System', link: '/api/system' },
                     // { text: 'Entities & GameObjects', link: '/api/entities-and-gameobjects' },
                     // { text: 'System', link: '/api/system' },
