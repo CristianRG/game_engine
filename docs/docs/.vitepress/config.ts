@@ -39,6 +39,13 @@ export default defineConfig({
                     // { text: 'GlobalState', link: '/api/globalstate' },
                 ],
             },
+            {
+                text: 'Components',
+                items: [
+                    { text: 'Transform', link: '/components/transform' },
+                    { text: 'InputKeys', link: '/components/inputkeys' },
+                ]
+            }
             // {
             //     text: 'Examples',
             //     items: [
