@@ -3,6 +3,8 @@
 A game engine written in TypeScript and transpiled to JavaScript.
 It includes features that allow you to create games directly from the browser in a simple and easy way, thanks to the flexibility to modify or scale the source code.
 
+You can see the official documentation in [@cristianrg/game_engine](https://cristianrg.github.io/game_engine/)
+
 ## Quick start
 
 ### Installation
