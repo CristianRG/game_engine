@@ -7,8 +7,11 @@ export default defineConfig({
     lastUpdated: true,
     base: '/game_engine/',
     themeConfig: {
+        logo: '/icon.png',
+        socialLinks: [
+            { icon: 'github', link: 'https://github.com/CristianRG/game_engine'},
+        ],
         nav: [
-            { text: 'GitHub', link: 'https://github.com/CristianRG/game_engine' },
             { text: 'Guide', link: '/guide/quick-start' },
             // { text: 'API', link: '/api'},
             // { text: 'Examples', link: '/examples'},
